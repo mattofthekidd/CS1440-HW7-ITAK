@@ -7,48 +7,48 @@
 #include <string>
 #include <vector>
 #include <iostream>
-template <typename T> class KeyValue;
-template <typename T> std::ostream& operator<<(std::ostream& os, const KeyValue<T>& x);
+template <typename K, typename W> class KeyValue;
+template <typename K, typename W> std::ostream& operator<<(std::ostream& os, const KeyValue<K, W>& x);
 
 template <typename K, typename W>
 class KeyValue {
 public:
-    KeyValue(T, std::string);
-    std::string getKeyValue() const { return m_keyValue; }
-    std::string getWordByIndex(int n) const;
+    KeyValue(K, W);
+    K getKeyValue() const { return m_keyValue; }
+    W getWordByIndex(int n) const;
     int getCount() const;
-    void addWord(const std::string&);
-    friend std::ostream& operator<< <T> (std::ostream&, const KeyValue<T>&);
+    void addWord(const W&);
+    friend std::ostream& operator<< <K, W> (std::ostream&, const KeyValue<K, W>&);
 
 private:
-    T m_keyValue;
-    std::vector<T> m_words;
+    K m_keyValue;
+    std::vector<W> m_words;
 };
 
-template <typename T>
-KeyValue<T>::KeyValue(T t, std::string word) :
-m_keyValue(t)
+template <typename K, typename W>
+KeyValue<K, W>::KeyValue(K k, W word) :
+m_keyValue(k)
 {
     m_words.push_back(word);
 };
 
-template <typename T>
-std::string KeyValue<T>::getWordByIndex(int n) const {
+template <typename K, typename W>
+W KeyValue<K, W>::getWordByIndex(int n) const {
     return m_words.at(n);
 };
 
-template <typename T>
-void KeyValue<T>::addWord(const std::string& x) {
-    m_words.push_back(x);
+template <typename K, typename W>
+void KeyValue<K, W>::addWord(const W& w) {
+    m_words.push_back(w);
 };
 
-template <typename T>
-int KeyValue<T>::getCount() const {
+template <typename K, typename W>
+int KeyValue<K, W>::getCount() const {
     return m_words.size();
 };
 
-template <typename T>
-std::ostream& operator<<(std::ostream& os, const KeyValue<T> & x) {
+template <typename K, typename W>
+std::ostream& operator<<(std::ostream& os, const KeyValue<K, W> & x) {
     for(auto i = 0; i < x.m_words.size(); i++) {
         os << x.m_keyValue + ", ";
         os << x.m_words[i];

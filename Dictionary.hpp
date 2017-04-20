@@ -23,11 +23,11 @@ public:
     void removeByKey(const K& k);
     std::string getByIndex(int n) const;
     std::string getByKey(const K&) const;
-    int getCapacity() const { return m_list.capacity(); }
+    unsigned long getCapacity() const { return m_list.capacity(); }
 
 private:
     int m_count = 0;
-    std::vector<KeyValue<K>> m_list;
+    std::vector< KeyValue<K, W> > m_list;
     bool isEqual(const K& lhs, const K& rhs) const;
 
     void determineSize();
@@ -59,14 +59,14 @@ void Dictionary<K, W>::add(K keyValue, W word) {
 
         }
         if (unique) {
-            KeyValue<K> temp(keyValue, word);
+            KeyValue<K, W> temp(keyValue, word);
             m_list.push_back(temp);
         } else {
             m_list[pos].addWord(word);
         }
     }
     else {
-        KeyValue<K> temp(keyValue, word);
+        KeyValue<K, W> temp(keyValue, word);
         m_list.push_back(temp);
     }
     determineSize();
@@ -139,7 +139,7 @@ bool Dictionary<K, W>::isEqual(const K& lhs, const K& rhs)const {
 
 template<typename K, typename W>
 void Dictionary<K, W>::determineSize() {
-    int temp = m_list.size();
+    auto temp = m_list.size();
     for(auto i = 0; i < m_list.size(); i++) {
         if(m_list.at(i).getCount() != 1) {
             temp += m_list.at(i).getCount() - 1;
