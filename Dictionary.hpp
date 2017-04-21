@@ -43,6 +43,11 @@ Dictionary<K, W>::Dictionary(int n) {
     m_list.reserve(n);
 };
 
+//If capacity is too small then double it until it is large enough
+// Checks to see if the new word's keyvalue is unique or not,
+// if it isn't then it increments a counter for that by one
+// and adds that word to that keyvalue
+//Else it appends that new word and keyvalue to the end of the list
 template<typename K, typename W>
 void Dictionary<K, W>::add(K keyValue, W word) {
     bool unique = true;
